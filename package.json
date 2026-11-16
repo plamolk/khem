@@ -1,0 +1,20 @@
+{
+  "name": "hotel-vocab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "คำศัพท์และประโยคภาษาอังกฤษ-จีน สำหรับงานโรงแรม",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./public/styles.css --minify",
+    "watch": "tailwindcss -i ./src/input.css -o ./public/styles.css --watch",
+    "serve": "serve public -l 5173",
+    "dev": "concurrently -k \"npm:watch\" \"npm:serve\"",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "concurrently": "^10.0.7",
+    "serve": "^14.2.8",
+    "tailwindcss": "^4.3.5"
+  }
+}
