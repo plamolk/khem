@@ -2,6 +2,16 @@
 
 @theme {
   --font-sans: "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
+
+  /* ชุดสี 60-30-10 — เปลี่ยนสีทั้งเว็บได้ที่นี่ (npm test ตรวจว่ายังอ่านง่าย) */
+  --color-cream: #FAF7F0;         /* 60: พื้นหลัง */
+  --color-ink: #3F3F46;           /* 30: ตัวหนังสือหลัก */
+  --color-ink-soft: #71717A;      /* 30: ตัวหนังสือรอง */
+  --color-line: #E6E0D4;          /* 30: เส้นขอบ */
+  --color-navy: #1E3A5F;          /* 30: แถบเมนู หัวข้อ พินอิน */
+  --color-navy-soft: #C7D2E0;     /* ตัวหนังสือรองบนแถบน้ำเงิน */
+  --color-accent: #EA580C;        /* 10: ปุ่มลำโพง ลูกศร */
+  --color-accent-strong: #C2410C; /* 10: ปุ่มที่มีตัวหนังสือ เลขหมวด */
 }
 
 @layer base {
@@ -10,7 +20,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-stone-800 antialiased;
+    @apply bg-cream font-sans text-ink antialiased;
   }
 
   /* พินอินใช้ฟอนต์ของระบบ เพราะ Noto Sans Thai วาดเครื่องหมายวรรณยุกต์ ā ē ผิดที่ */
@@ -32,6 +42,6 @@ html.no-tts-zh [data-speak="zh"] {
 
 /* ปุ่มที่กำลังอ่านออกเสียง */
 .speak-btn.is-speaking > span {
-  background-color: var(--color-red-600);
+  background-color: var(--color-navy);
   color: var(--color-white);
 }
