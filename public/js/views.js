@@ -1,6 +1,6 @@
 // สร้าง HTML ของแต่ละหน้าจากข้อมูล — pure functions ไม่แตะหน้าเว็บ (document)
 
-const SITE_TITLE = 'หมวดหมู่คำศัพท์';
+const SITE_TITLE = 'คำศัพท์ภาษาอังกฤษ-จีนสำหรับงานบริการ';
 
 const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 
@@ -39,13 +39,13 @@ export function renderHome(categories) {
     .map(
       (c) => `
       <li>
-        <a href="#/c/${c.id}" data-category="${c.id}" class="flex h-full items-center gap-3 rounded-2xl border border-line bg-white px-4 py-4 transition-colors hover:border-accent active:bg-cream">
-          <span class="w-7 shrink-0 text-lg font-medium tabular-nums text-accent-strong">${pad2(c.id)}</span>
+        <a href="#/c/${c.id}" data-category="${c.id}" class="flex h-full items-center gap-3 rounded-2xl border border-line bg-white px-4 py-4 transition-colors hover:border-primary active:bg-page">
+          <span class="w-8 shrink-0 rounded-md bg-highlight py-0.5 text-center text-lg font-medium tabular-nums text-ink">${pad2(c.id)}</span>
           <span class="min-w-0 flex-1">
             <span class="block text-[17px] font-medium leading-snug text-ink">${escapeHtml(c.th)}</span>
-            <span class="mt-0.5 block text-[13px] text-ink-soft" lang="en">${escapeHtml(c.en)} · <span lang="th">${c.items.length} คำ</span></span>
+            <span class="mt-0.5 block text-[13px] text-ink-soft" lang="en">${escapeHtml(c.en)} · <span lang="th" class="whitespace-nowrap">${c.items.length} คำ</span></span>
           </span>
-          <span class="shrink-0 text-accent">${ICONS.chevron}</span>
+          <span class="shrink-0 text-primary">${ICONS.chevron}</span>
         </a>
       </li>`,
     )
@@ -65,7 +65,7 @@ export function renderHome(categories) {
 const speakButton = (lang, text) => {
   const label = lang === 'en' ? 'ฟังเสียงภาษาอังกฤษ' : 'ฟังเสียงภาษาจีน';
   return `<button type="button" data-speak="${lang}" data-text="${escapeHtml(text)}" aria-label="${label}: ${escapeHtml(text)}" aria-pressed="false" class="speak-btn inline-flex size-11 shrink-0 items-center justify-center rounded-full">
-            <span class="inline-flex size-8 items-center justify-center rounded-full bg-accent text-white transition-colors">${ICONS.speaker}</span>
+            <span class="inline-flex size-8 items-center justify-center rounded-full bg-highlight text-ink transition-colors">${ICONS.speaker}</span>
           </button>`;
 };
 
@@ -93,13 +93,13 @@ const renderFooter = (category, categories) => {
   if (!next) {
     return `
     <nav class="${NAV}">
-      <a href="#/" class="flex w-full items-center justify-center gap-2 rounded-2xl border border-accent-strong bg-white px-4 py-4 text-base text-accent-strong active:bg-cream sm:w-auto sm:px-5">${ICONS.back}<span>กลับหน้าแรก</span></a>
+      <a href="#/" class="flex w-full items-center justify-center gap-2 rounded-2xl bg-highlight px-4 py-4 text-base text-ink active:bg-amber-400 sm:w-auto sm:px-5">${ICONS.back}<span>กลับหน้าแรก</span></a>
     </nav>`;
   }
   return `
     <nav class="${NAV}">
-      <a href="#/" class="hidden items-center justify-center gap-2 rounded-2xl border border-accent-strong bg-white px-5 py-4 text-base text-accent-strong active:bg-cream sm:inline-flex">${ICONS.back}<span>หน้าแรก</span></a>
-      <a href="#/c/${next.id}" class="flex w-full items-center gap-3 rounded-2xl bg-accent-strong px-4 py-4 text-white active:bg-navy sm:ml-auto sm:max-w-md">
+      <a href="#/" class="hidden items-center justify-center gap-2 rounded-2xl bg-highlight px-5 py-4 text-base text-ink active:bg-amber-400 sm:inline-flex">${ICONS.back}<span>หน้าแรก</span></a>
+      <a href="#/c/${next.id}" class="flex w-full items-center gap-3 rounded-2xl bg-primary px-4 py-4 text-white active:bg-navy sm:ml-auto sm:max-w-md">
         <span class="min-w-0 flex-1">
           <span class="block text-[13px]">หมวดถัดไป</span>
           <span class="block text-base leading-snug">${pad2(next.id)} ${escapeHtml(next.th)}</span>

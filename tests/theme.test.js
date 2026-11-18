@@ -31,30 +31,32 @@ function assertContrast(fg, bg, min) {
   assert.ok(ratio >= min, `${fg} บน ${bg} = ${ratio.toFixed(2)}:1 ต่ำกว่า ${min}:1`);
 }
 
-test('มีครบ 8 สีตามสเปก', () => {
+test('มีครบ 9 สีตามสเปก', () => {
   assert.deepEqual(colors, {
-    cream: '#FAF7F0',
-    ink: '#3F3F46',
-    'ink-soft': '#71717A',
-    line: '#E6E0D4',
-    navy: '#1E3A5F',
-    'navy-soft': '#C7D2E0',
-    accent: '#EA580C',
-    'accent-strong': '#C2410C',
+    page: '#F8F9FA',
+    ink: '#222222',
+    'ink-soft': '#6B7280',
+    line: '#E5E7EB',
+    navy: '#1E3A8A',
+    'navy-soft': '#BFDBFE',
+    primary: '#2563EB',
+    highlight: '#F59E0B',
+    'highlight-strong': '#D97706',
   });
 });
 
 test('ตัวหนังสือผ่าน AA 4.5:1', () => {
   const pairs = [
-    ['ink', 'cream'], ['ink', WHITE],
-    ['ink-soft', 'cream'], ['ink-soft', WHITE],
+    ['ink', 'page'], ['ink', WHITE],
+    ['ink-soft', 'page'], ['ink-soft', WHITE],
     [WHITE, 'navy'], ['navy-soft', 'navy'], ['navy', WHITE],
-    [WHITE, 'accent-strong'], ['accent-strong', WHITE],
+    [WHITE, 'primary'], ['ink', 'highlight'],
   ];
   for (const [fg, bg] of pairs) assertContrast(fg, bg, 4.5);
 });
 
 test('ไอคอนผ่าน 3:1', () => {
-  assertContrast(WHITE, 'accent', 3);
-  assertContrast(WHITE, 'navy', 3);
+  assertContrast('primary', WHITE, 3);
+  assertContrast('ink', 'highlight', 3);
+  assertContrast('ink', 'highlight-strong', 3);
 });

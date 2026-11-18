@@ -95,16 +95,32 @@ test('hasClass ตรวจคลาสแบบทั้งคำ', () => {
 
 test('ใช้สีจากธีม', () => {
   const home = renderHome(categories);
-  for (const cls of ['bg-navy', 'text-navy-soft', 'border-line', 'text-accent-strong', 'text-[17px]', 'text-ink', 'text-ink-soft', 'text-accent']) {
+  for (const cls of ['bg-navy', 'text-navy-soft', 'border-line', 'bg-highlight', 'text-primary', 'text-[17px]', 'text-ink', 'text-ink-soft']) {
     assert.ok(hasClass(home, cls), `หน้าแรกขาด ${cls}`);
   }
   const cat1 = renderCategory(categories[0], categories);
-  for (const cls of ['bg-navy', 'text-navy-soft', 'border-line', 'bg-accent', 'text-navy', 'text-[17px]', 'text-ink', 'text-ink-soft']) {
+  for (const cls of ['bg-navy', 'text-navy-soft', 'border-line', 'bg-highlight', 'text-navy', 'text-[17px]', 'text-ink', 'text-ink-soft']) {
     assert.ok(hasClass(cat1, cls), `หน้าหมวดขาด ${cls}`);
   }
-  assert.ok(hasClass(afterLastCard(cat1), 'bg-accent-strong'), 'ปุ่มหมวดถัดไปสีส้มเข้ม');
+  assert.ok(hasClass(afterLastCard(cat1), 'bg-primary'), 'ปุ่มหมวดถัดไปสีน้ำเงินสด');
   const footer4 = afterLastCard(renderCategory(categories[3], categories));
-  assert.ok(hasClass(footer4, 'border-accent-strong') && hasClass(footer4, 'text-accent-strong'), 'ปุ่มกลับหน้าแรกขอบ/ตัวหนังสือส้มเข้ม');
+  assert.ok(hasClass(footer4, 'bg-highlight') && hasClass(footer4, 'text-ink'), 'ปุ่มกลับหน้าแรกสีส้ม ตัวหนังสือเข้ม');
+});
+
+test('ไม่มีชื่อสีชุดเก่า', () => {
+  const pages = [renderHome(categories), ...categories.map((c) => renderCategory(c, categories))];
+  for (const html of pages) {
+    assert.doesNotMatch(html, /(?<![\w-])(?:[a-z]+:)?(?:bg|text|border)-(?:cream|accent|accent-strong)(?![\w-])/);
+  }
+});
+
+test('บนพื้นส้มไม่มีตัวหนังสือสีขาว', () => {
+  const pages = [renderHome(categories), ...categories.map((c) => renderCategory(c, categories))];
+  for (const html of pages) {
+    for (const [, cls] of html.matchAll(/class="([^"]*)"/g)) {
+      if (/(?<![\w:-])bg-highlight(?![\w-])/.test(cls)) assert.doesNotMatch(cls, /(?<![\w-])text-white(?![\w-])/, cls);
+    }
+  }
 });
 
 // มือถือ (<640px) = คอลัมน์เดียวเสมอ, ตั้งแต่ 640px = เติมคอลัมน์ตามความกว้าง การ์ดกว้าง ≥ 17.5rem (280px)
